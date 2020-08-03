@@ -1,0 +1,60 @@
+
+<!-- saved from url=(0048)http://www.statsproblems.com/p30/19/analdisp.cgi -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body data-gr-c-s-loaded="true"><div style="background-color: lightblue;width:1000px;font-weight:bold;">4a. Produce a column graph using SVG graphics. Note that the PERL program will create the SVG code in the same way that the PERL program created the graph in homework assignment 5. This will be more difficult because you will have to use SVG to 
+create a column graph instead of a bar graph. </div> <br><svg width="600" height="400">
+<rect x="90" y="40" width="500" height="200" stroke="black" fill="transparent" stroke-width="5"></rect>
+<!-- graph container -->
+
+<text x="200" y="20" font-size="25px" font-weight="bold">Scores for each condition</text>
+
+<text x="-30" y="185" font-weight="bold" font-size="20px" transform="rotate(-90 20,170)">t2 detection accuracy</text>
+
+<text x="230" y="305" font-size="20px" font-weight="bold">Number of Distractors</text>
+
+<text x="155" y="270" font-size="25px">0 </text>
+<text x="280" y="270" font-size="25px">2 </text>
+<text x="405" y="270" font-size="25px">3 </text>
+<text x="530" y="270" font-size="25px">4 </text>
+
+
+
+<!-- axes labels  -->
+
+<line x1="90" x2="590" y1="190" y2="190" stroke="black" stroke-width="1"></line>
+<!--x1 is the starting point on the x axis and x2 is the end point -->
+<line x1="90" x2="590" y1="140" y2="140" stroke="black" stroke-width="1"></line>
+<line x1="90" x2="590" y1="90" y2="90" stroke="black" stroke-width="1"></line>
+<!-- graph scalar markers-->
+
+<text x="50" y="195" font-size="20">25%</text>
+<text x="50" y="145" font-size="20">50%</text>
+<text x="50" y="95" font-size="20">75%</text>
+
+
+<!-- columns -->
+<rect x="145" y="128.8182" width="40" height="108.1818" fill="#839CE0"></rect>
+<rect x="265" y="123.1818" width="40" height="113.8182" fill="#839CE0"></rect>
+<rect x="390" y="109" width="40" height="128" fill="#839CE0"></rect>
+<rect x="515" y="133.909" width="40" height="103.091" fill="#839CE0"></rect>
+</svg><div style="background-color: lightblue;width:1000px;font-weight:bold;"> 4b. Display all of the data records in a table ordered by seq. This will verify that the counterbalancing was correct. </div> <br><table width="700" border="1"><tbody><tr><th>CB</th><th>0 distractors</th><th>2 distractors</th><th>3 distractors</th><th>4 distractors</th></tr><tr><td>3</td><td>0.32</td><td>0.20</td><td>0.21</td><td>0.14</td></tr><tr><td>4</td><td>0.40</td><td>0.60</td><td>0.60</td><td>0.40</td></tr><tr><td>1</td><td>0.40</td><td>0.80</td><td>0.40</td><td>0.80</td></tr><tr><td>2</td><td>0.83</td><td>0.67</td><td>0.83</td><td>0.67</td></tr><tr><td>3</td><td>0.83</td><td>0.33</td><td>0.67</td><td>0.50</td></tr><tr><td>3</td><td>0.67</td><td>0.83</td><td>1.00</td><td>0.83</td></tr><tr><td>2</td><td>0.83</td><td>0.83</td><td>0.67</td><td>0.83</td></tr><tr><td>4</td><td>0.50</td><td>0.67</td><td>0.83</td><td>0.67</td></tr><tr><td>1</td><td>0.50</td><td>0.50</td><td>0.83</td><td>0.33</td></tr><tr><td>2</td><td>0.67</td><td>0.83</td><td>1.00</td><td>0.50</td></tr><tr><td>0</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr></tbody></table><br><div style="background-color: lightblue;width:1000px;font-weight:bold;">  4c. Perform a statistical analysis on the data. The type of analysis will depend upon the design of your experiment. You will be given some analysis tools to verify the results of your experiment, but your PERL program must do the calculations of the analysis. The specifics of these calculations will be given to you in a later week.</div><br><div style="background-color:#F88379;width:1000px;font-weight:bold;">Step 1: Calculate Means of Participants </div><br>
+<div><table width="700" border="1"><tbody><tr><th>PID</th><th>avg score</th></tr><tr><td>1</td><td>0.2175</td></tr><tr><td>2</td><td>0.5</td></tr><tr><td>3</td><td>0.6</td></tr><tr><td>4</td><td>0.75</td></tr><tr><td>5</td><td>0.5825</td></tr><tr><td>6</td><td>0.8325</td></tr><tr><td>7</td><td>0.79</td></tr><tr><td>8</td><td>0.6675</td></tr><tr><td>9</td><td>0.54</td></tr><tr><td>10</td><td>0.75</td></tr><tr><td>11</td><td>0</td></tr></tbody></table><br><div style="background-color:#F88379;width:1000px;font-weight:bold;">Step 2: Calculate Means of Groups
+ </div>
+X1 : 0.540909 
+<br>X2 : 0.569091 
+<br>X3 : 0.640000
+<br>X4 : 0.515455
+<br>
+<br><div style="background-color:#F88379;width:1000px;font-weight:bold;">Step 3: Calculate Grand Mean (Xg) </div><b>Xg =</b> (X1 + X2 + X3 + X4) / 4 <br> =&gt; 0.540909 + 0.569091 + 0.640000 +0.515455 / 4 <br><b>=0.56636375</b>
+<br><br><div style="background-color:#F88379;width:1000px;font-weight:bold;">Step 4: Calculate sum of squares</div><b>SS between groups : </b>0.0953631836382501<br> 
+<b>SS between subjects :</b> 2.58991818181875<br>
+<b>total SS :</b> 3.36921818181875 <br>
+<br><b>SS Residual :</b> (3.36921818181875 - 2.58991818181875 - 0.0953631836382501) = <b>0.68393681636175</b><br><br><div style="background-color:#F88379;width:1000px;font-weight:bold;"> Step 5: Calculate Degrees of Freedom. k is the number of groups. p is the number of participants. NG is total number of scores.</div><b>df Residual =</b> Ng - k - p + 1 <br>=&gt; 44 - 4 - 11 + 1 <br><b>dfRes= 30</b> <br><br><b>df Between occasions =</b> k -1 <br>=&gt; 4 -1 <br>
+<b>dfB= 3 </b><br><br> <div style="background-color:#F88379;width:1000px;font-weight:bold;">Step 6: Calculate MSResidual
+</div><b>MS Residual =</b> SS Residual/df Residual <br>
+=&gt;0.68393681636175 / 30<br>
+<b>= 0.022797893878725<br></b><br><div style="background-color:#F88379;width:1000px;font-weight:bold;"> Step 7: calculate MS Between Groups.</div><b>MS Between Groups</b> = SS Between Groups/df Between Groups<br>
+= 0.0953631836382501 / 3<br>
+<b>=0.0317877278794167</b><br><br><div style="background-color:#F88379;width:1000px;font-weight:bold;"> Step 8: Calculate Observed F Value</div><b>F =</b> MS Between Groups / MS Residual <br>
+= 0.0317877278794167 / 0.022797893878725 <br>
+<b>= 1.39432739043851</b><br><br><div style="background-color:#F88379;width:1000px;font-weight:bold;"> Step 9: Find Critical t Value
+</div>observed F value of 1.39432739043851 is less than critical value of 2.92 <br> <span style="color:red;font-weight:bold;font-size:20;">Fail to reject the null hypothesis</span><br></div></body></html>

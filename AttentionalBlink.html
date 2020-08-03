@@ -1,0 +1,497 @@
+<script Language='JavaScript'>
+    //THIS VERSION IS THE SAME AS THE ONE IN THE ONLINE IDE
+
+
+    var x = 0; //window width
+    var x = 0; //window height
+    var tcount = 0;
+    var dcount = 0;
+
+    //target positioning
+    var tpos = 0; //position of t1
+    var t2_placement = 0; //position of t2
+    var place = 0; //y/n for a t2 
+    var time = 105; //ms for duration of stimuli
+
+    //answers for evaluation as ascii codes
+    var cond_num = 0;
+    var trial_num = 0;
+    var flagger = 0;
+    var t1_ans = 0;
+    var t2_ans = 0;
+
+    //scores
+    var t1_correct = false;
+    var t2_correct = [0, 0, 0, 0];  //has to be stored as an array to get the accuracy per condition    
+
+    var cb_array = [0, 2, 3, 4];
+    var groupno = 1;
+
+    //these are where the final accuacy per condition will be stored
+    var dis_0 = 0.0;
+    var dis_2 = 0.0;
+    var dis_3 = 0.0;
+    var dis_4 = 0.0;
+
+    function getgroup() {
+        //QUESTION: DATA STORING
+        document.getElementById('iframe').src = 'getcb.cgi';
+    }
+
+    function assigncb() {
+        //QUESTION: DATA STORING
+    
+        groupno = document.getElementById('groupno').value;
+        if (groupno == 1) {
+            cb_array = [0, 2, 4, 3];
+        }
+        if (groupno == 2) {
+            cb_array = [2, 3, 4, 0];
+        }
+        if (groupno == 3) {
+            cb_array = [4, 0, 2, 3];
+        }
+        if (groupno == 4) {
+            cb_array = [3, 4, 0, 2];
+        }
+    }
+    function getScreen() {
+        //dynamic positioning of divs to center things for every screen resolution 
+        x = window.innerWidth / 2;
+        y = window.innerHeight / 2;
+
+        document.getElementById('target').style.left = (x - 30) + 'px';
+        document.getElementById('target').style.top = (y - 30) + 'px';
+
+        document.getElementById('instructions').style.left = (x - 500) + 'px';
+        document.getElementById('instructions').style.top = (y - 350) + 'px';
+
+        document.getElementById('eval1').style.left = (x - 264) + 'px';
+        document.getElementById('eval1').style.top = (y - 30) + 'px';
+
+        document.getElementById('eval2').style.left = (x - 204) + 'px';
+        document.getElementById('eval2').style.top = (y - 30) + 'px';
+
+        document.getElementById('eval3').style.left = (x - 184) + 'px';
+        document.getElementById('eval3').style.top = (y - 30) + 'px';
+
+        document.getElementById('response').style.left = (x - 114) + 'px';
+        document.getElementById('response').style.top = (y - 30) + 'px';
+
+        document.getElementById('end').style.left = (x - 114) + 'px';
+        document.getElementById('end').style.top = (y - 30) + 'px';
+
+        document.getElementById('bs').style.left = (x - 50) + 'px';
+        document.getElementById('bs').style.top = (y + 250) + 'px';
+
+        document.getElementById('p2').style.left = (x - 580) + 'px';
+        document.getElementById('p2').style.top = (y + 160) + 'px';
+
+        document.getElementById('p2').style.left = (x - 580) + 'px';
+        document.getElementById('p2').style.top = (y + 160) + 'px';
+    }
+
+    function gensample() {
+        //reused a lot of code..BUT TRUST  ME would've been more complicated to make another function
+        var ascii = 55;
+        t1 = String.fromCharCode(ascii);
+        document.getElementById('target').style.display = 'block';
+
+        document.getElementById('target').innerHTML = t1;
+        c = 360 / 4;
+        points = [0, 0, 0, 0];    //points hold each iterated generated point so the next one can use             
+
+        for (i = 0; i < 4; i++) {
+            if (i == 0) {
+                p = Math.floor(Math.random() * c + 1);
+                //only calculate a rnd point for  the first iteration
+            } else {
+                p = points[i - 1] + c;
+                //suceeding iterations are just  the prev point + 180 or 120 or 90
+            }
+            points[i] = p;
+            p = p / 57.295; //convert from radians to degrees
+            sin = Math.sin(p);
+            cos = Math.cos(p);
+            xp = x - (Math.floor(cos * 100));
+            yp = y - (Math.floor(sin * 100));
+
+
+            document.getElementById('d' + (i + 1)).style.left = (xp - 30) + 'px';
+            document.getElementById('d' + (i + 1)).style.top = (yp - 30) + 'px';
+
+            distract = Math.floor(Math.random() * (90 - 65) + 65);
+            d = String.fromCharCode(distract);
+
+            document.getElementById('d' + (i + 1)).innerHTML = d;
+            document.getElementById('d' + (i + 1)).style.display = 'block';
+        }
+
+    }
+
+    function crosshair() {
+        //document.getElementById('debugger').innerHTML = '';
+        for (i = 1; i <= 4; i++) {
+            document.getElementById('d' + i).style.display = 'none';
+        }
+        document.getElementById('target').innerHTML = '+';
+        document.getElementById('instructions').style.display = 'none';
+        document.getElementById('bs').style.display = 'none';
+        document.getElementById('target').style.display = 'block';
+
+        if (cond_num == 3 && trial_num == 5) {
+            document.getElementById('target').style.display = 'none';
+            document.getElementById('end').style.display = 'block';
+            calc_score();
+        } else {
+            setTimeout(startTrial, 1500, cb_array);
+        }
+
+    }
+    function startTrial() {
+        //only does 1 trial per call
+        //90 ms per stimuli (weird things with 100 bc of screen refresh)
+        //20 stimuli per trial
+        //5 trials for each condition
+
+        //document.getElementById('debugger').innerHTML = '';
+        for (i = 1; i <= 4; i++) {
+            document.getElementById('d' + i).style.display = 'none';
+        }
+        document.getElementById('instructions').style.display = 'none';
+        document.getElementById('eval1').style.display = 'none';
+        document.getElementById('eval2').style.display = 'none';
+
+
+        dcount = 0;
+        tcount = 0;
+        tpos = 0;
+        t2_placement = 0;
+        flagger = 0;
+        t1_correct = false;
+
+
+        condition = cb_array[(cond_num)]
+        trial_num += 1;
+        if (trial_num == 6) {
+            trial_num = 0;
+            cond_num += 1;
+        }
+
+        distractors(condition);
+        tplace();
+
+    };
+
+
+    function tplace() {
+        //calculates/sets the placement of t1 & t2 before the target function is called 
+
+        tpos = Math.floor(Math.random() * (15 - 5) + 5);
+        //random position for T1 somewhere in the trial between 5 & 15
+        place = Math.floor(Math.random() * (2) + 1);
+        //to randomize y/n if there was an X or not 1= Y 2= N
+
+        t2_placement = Math.floor(Math.random() * 4 + 1);
+        t2_placement += tpos;
+        //randomize placement of x after t1
+
+        if (place == 1) {
+            t2_ans = 89;
+        } else {
+            t2_ans = 78;
+        }
+
+        //document.getElementById('debugger').innerHTML += ("t1= " + tpos + " t2= " + t2_placement + " t2? : " + place + "<br>");
+        target();
+    }
+
+    function target() {
+        document.getElementById('target').style.display = 'block';
+
+        tcount += 1;
+        //tpos & t2_placement are accessed globally 
+        if (tcount == tpos) {
+            var trgt = 0;
+            trgt = Math.floor(Math.random() * (57 - 49) + 49);
+            t1 = String.fromCharCode(trgt);
+            document.getElementById('target').innerHTML = t1;
+            t1_ans = trgt;
+        } else if (tcount == t2_placement && place == 1) {
+            //t2 : the placement of t2 is randomly <b>sometimes<b> within 1-4 spaces after t1
+            t2 = String.fromCharCode(88);
+            document.getElementById('target').innerHTML = t2;
+        } else {
+            //else, put a random distractor
+            do {
+                distract = Math.floor(Math.random() * (90 - 65) + 65);
+            } while (distract == 88);
+            //executes random distractor ascii at least once and recalculates if it's X
+
+            d = String.fromCharCode(distract);
+            document.getElementById('target').innerHTML = d;
+        }
+        //document.getElementById('debugger').innerHTML += tcount + "<br>"
+
+        if (tcount < 20) {
+            setTimeout(target, time);
+        } else {
+            genfinal();
+        }
+    };
+
+
+    function distractors(num) {
+        //num is the number of distractors
+        dcount += 1;
+        c = 360 / num;
+        points = [0, 0, 0, 0];    //points hold each iteration generated point so the next one can use             
+
+        for (i = 0; i < num; i++) {
+            if (i == 0) {
+                p = Math.floor(Math.random() * c + 1);
+                //only calculate a rnd point for  the first iteration
+            } else {
+                p = points[i - 1] + c;
+                //suceeding iterations are just  the prev point + 180 or 120 or 90
+            }
+            points[i] = p;
+            p = p / 57.295; //convert from radians to degrees
+            sin = Math.sin(p);
+            cos = Math.cos(p);
+            xp = x - (Math.floor(cos * 100));
+            yp = y - (Math.floor(sin * 100));
+
+
+            document.getElementById('d' + (i + 1)).style.left = (xp - 30) + 'px';
+            document.getElementById('d' + (i + 1)).style.top = (yp - 30) + 'px';
+
+            distract = Math.floor(Math.random() * (90 - 65) + 65);
+            d = String.fromCharCode(distract);
+
+            document.getElementById('d' + (i + 1)).innerHTML = d;
+            document.getElementById('d' + (i + 1)).style.display = 'block';
+        }
+
+        if (dcount < 20) {
+            setTimeout(distractors, time, num);
+            //modern day setTimeout! 3rd parameter is the parameter passed into the function
+        } else {
+            genfinal();
+        }
+
+
+    };
+
+    function genfinal() {
+        for (i = 1; i <= 4; i++) {
+            document.getElementById('d' + i).style.display = 'none';
+        }
+        document.getElementById('target').style.display = 'none';
+
+        setTimeout(function () { document.getElementById('eval1').style.display = 'block'; }, 1000);
+    }
+
+
+    function cleareval() {
+        for (i = 1; i <= 3; i++) {
+            document.getElementById('eval' + i).style.display = 'none';
+        }
+        document.getElementById('response').innerHTML = " ";
+        document.getElementById('response').style.display = 'none';
+
+    }
+
+    function onkeynum(e) {
+
+        flagger += 1;
+        //if the participant identified the  right T1 #
+        if (flagger == 1 && e.keyCode == t1_ans) {
+            t1_correct = true;
+            ascii = e.which;
+            rspnse = String.fromCharCode(ascii);
+
+            cleareval();
+
+            document.getElementById('response').style.display = 'block';
+            document.getElementById('response').innerHTML = "you entered : " + rspnse;
+
+            setTimeout(function () { cleareval(); document.getElementById('eval2').style.display = 'block'; }, 2000);
+
+        } else if (flagger == 2 && e.which == t2_ans) {
+            if (t1_correct == true) {
+                t2_correct[cond_num] += 1;
+            }
+            ascii = e.which;
+            rspnse = String.fromCharCode(ascii);
+
+            cleareval();
+
+            document.getElementById('response').style.display = 'block';
+            document.getElementById('response').innerHTML = "you entered : " + rspnse;
+
+            setTimeout(function () { cleareval(); document.getElementById('eval3').style.display = 'block'; }, 2000);
+        } else if (flagger >= 3 && e.which == 32) {
+            cleareval();
+            crosshair();
+        } else {
+            cleareval();
+            ascii = e.which;
+            rspnse = String.fromCharCode(ascii);
+
+            document.getElementById('response').style.display = 'block';
+            document.getElementById('response').innerHTML = "you entered : " + rspnse;
+
+            setTimeout(function () {
+                cleareval();
+                if (flagger < 3) {
+                    document.getElementById("eval" + (flagger + 1)).style.display = 'block';
+                } else {
+                    document.getElementById('eval3').style.display = 'block';
+                }
+            }, 2000);
+        }
+
+
+    }
+
+    function calc_score() {
+        //the only way i could think of to store the accuracy according to
+        //the # of distractors, sorts & stores score accuracy into correct
+        //condition 
+
+        //DATA STORING
+
+        for (i = 0; i <= 3; i++) {
+            if (cb_array[i] == 0) {
+                dis_0 = t2_correct[i] / 6;
+            } else if (cb_array[i] == 2) {
+                dis_2 = t2_correct[i] / 6;
+            } else if (cb_array[i] == 3) {
+                dis_3 = t2_correct[i] / 6;
+            } else if (cb_array[i] == 4) {
+                dis_4 = t2_correct[i] / 6;
+            }
+        }
+
+        document.form1.cond1.value = dis_0;
+        document.form1.cond2.value = dis_2;
+        document.form1.cond3.value = dis_3
+        document.form1.cond4.value = dis_4;
+        document.form1.cb.value = groupno;
+
+        submitit();
+    }
+
+
+    function submitit() {
+        document.form1.action = 'savedb.cgi';
+        document.form1.method = 'POST';
+        document.form1.submit();
+    }
+
+</script>
+
+<!-- Body Starts here. -->
+<!--QUESTION: getgroup() for coutner balancing is called in body onload-->
+
+
+
+<body onload='getScreen(),gensample(),getgroup()' onkeyup="onkeynum(event)">
+
+    <div id="instructions"
+        style="position:absolute;top:400px;left:400px;
+width: 1000px;height: 700px;border: solid;font-family: Arial, Helvetica, sans-serif;display:block;padding:20px">
+        <p id='p1' style='text-align:center;'>
+            <b>Instructions</b>
+        </p>
+        You will see a rapid stream of letters in the center with a variable
+        number of distractors surrounding the center.<br>
+        <b>task : </b>identify the number (1-9) that appears in the target
+        stream
+        <i>and then</i> evaluate whether or not (y/n) an X appeared sometime
+        after
+        the number
+        <br> <br>
+        Distractors : Capital letters <br>
+        Target 1 : A random number (1-9) <br>
+        Target 2 : Whether or not an X appeared after target 1 (y/n)<br>
+        <br>
+        <br>
+        <b>sample stimuli : </b>
+        </p>
+        <p id='p2'
+            style='position:absolute;top:400ps;left:400px;text-align:center'>At
+            the start of
+            each trial a crosshair will appear for you to fixate on for 1.5
+            seconds.<br>
+            <b>Please try not to press any keys unless prompted to</b> <br>
+            Press the button to start the experiment!</p>
+    </div>
+
+    <div id='eval1'
+        style="position:absolute;top:400px;left:400px;display:none;font-size: 30px;">
+
+        Q1 : what was the integer (1-9) in the sequence?</div>
+
+    <div id='eval2'
+        style="position:absolute;top:400px;left:400px;display:none;font-size: 30px;;">
+        Q2: was there an X after t1? (y/n)</div>
+    <div id='response'
+        style="position:absolute;top:400px;left:400px;display:none;font-size:30px;">
+        you entered : 5
+    </div>
+
+    </div>
+    <div id='eval3'
+        style="position:absolute;top:400px;left:400px;display:none;font-size:30px;">
+        Press Spacebar to Continue</div>
+
+    <div id='end'
+        style="position:absolute;top:400px;left:400px;display:none;font-size:30px;">
+        Thanks
+        for participating :0)</div>
+
+
+
+    <div id="target"
+        style='position:absolute;top:400px;left:400px;display:block;font-size: 30px;text-align: center;'>
+        <b>+</b></div>
+
+    <button type="button" id='bs' onclick='crosshair();assigncb();'
+        style="position:absolute;top:400px;left:400px;">START</button>
+
+    <div id='d1'
+        style='position:absolute;top:400px;left:400px;display:none;font-size: 30px;'>
+        <b>1</b>
+    </div>
+    <div id='d2'
+        style='position:absolute;top:400px;left:400px;display:none;font-size: 30px;'>
+        <b>2</b>
+    </div>
+    <div id='d3'
+        style='position:absolute;top:400px;left:400px;display:none;font-size: 30px;'>
+        <b>3</b></div>
+    <div id='d4'
+        style='position:absolute;top:400px;left:400px;display:none;font-size: 30px;'>
+        <b>4</b></div>
+
+
+
+    Group: <input type='text' style='font-size:18pt' id='groupno'
+        value='No Group Yet'><br>
+    <iframe style='display:none;height:120px;width:300px' id='iframe'></iframe>
+
+    <form name='form1'>
+        <!--DATA STORING-->
+        <input type='text' name='cond1' style='display:none;'>
+        <input type='text' name='cond2' style='display:none;'>
+        <input type='text' name='cond3' style='display:none;'>
+        <input type='text' name='cond4' style='display:none;'>
+        <input type='text' name='cb' style='display:none;'>
+
+    </form>
+    <!--
+    <div id='debugger' style='display:block'> iterations:<br> </div>
+-->
+</body>
