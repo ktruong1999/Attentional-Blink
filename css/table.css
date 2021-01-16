@@ -1,0 +1,29 @@
+table, tr{
+	border : 1px solid black;
+	    text-align: center;
+	border-radius:4px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+th{
+	background-color: #36383F;
+	color:white;
+	height: 25px;
+	border: none;
+
+}
+
+table{
+	width : 400px;
+	height : 200px;
+}
+
+td{
+	border : 1 px solid #828282;
+}
+
+#scores{
+	top: 380px;
+    position: absolute;
+		display:none;
+}

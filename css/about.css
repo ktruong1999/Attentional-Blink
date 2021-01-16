@@ -1,0 +1,101 @@
+body, div{
+display: flex;
+flex-direction:column;
+align-items:center;
+}
+
+
+#about{
+width: 837px;
+height: 484px;
+/* border: 1px solid #000000; */
+margin-bottom:20px;
+}
+
+#how{
+width: 842px;
+height: 231px;
+
+
+/* border: 1px solid #000000; */
+margin-bottom:20px;
+}
+
+
+#versions{
+width: 842px;
+height: 247px;
+/* border: 1px solid #000000; */
+margin-bottom:100px;
+
+}
+
+.headings{
+	font-family: Tinos;
+font-style: normal;
+font-weight: normal;
+font-size: 30px;
+line-height: 34px;
+margin:0px;
+align-self: self-end;
+}
+
+#def{
+	width: 661px;
+height: 192px;
+position: relative;
+margin-top:20px;
+}
+
+#main{
+	width: 626px;
+	height: 162px;
+	position: absolute;
+	top:0%;
+	right:0%;
+	z-index:1;
+
+
+	background: #F3E568;
+	display: flex;
+}
+#main p{
+	width: 503px;
+	height: 102px;
+	font-family: ABeeZee;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	line-height: 21px;
+	margin:30px 61px 30px 61px;
+	}
+
+	#accent{
+		width: 626px;
+	height: 162px;
+
+	background: #36383F;
+	z-index: 0;
+	position: absolute;
+	bottom:0%;
+	left:0%;
+	}
+
+	.copy{
+		width: 803px;
+		height: 78px;
+
+
+		font-family: ABeeZee;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		line-height: 21px;
+		margin-left:34px;
+	}
+
+	#exp{
+		width: 463px;
+height: 104px;
+margin-left:-100px;
+	}

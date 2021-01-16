@@ -1,0 +1,43 @@
+/* footer CSS */
+footer{
+	min-width: 100%;
+	height: 50px;
+	background: #E9EEF0;
+	
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+	position: fixed;
+	bottom:0%;
+}
+
+footer *{
+
+
+	font-family: Arial;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 41px;
+	/* identical to box height */
+
+	color: #B0B4B6;
+	margin : 0px;
+
+	}
+
+#links{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 0px;
+	width:421px;
+	height:41px;
+	justify-content: space-evenly;
+}
+
+#cred{
+	margin-left:40px;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Attentional Blink Experiment</title>
+	    <link rel="icon" href="X.svg" type="image/gif" sizes="16x16">
+
+	<link rel="stylesheet" type="text/css" href="css/footer.css">
+	<link rel="stylesheet" type="text/css" href="css/instructions.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+	<script src='js/script.js'></script>
+
+</head>
+
+
+<body onload='gensample()'>
+	<div id='header'>
+		<h1 id='main-head'>Attentional Blink</h1>	
+		<h2 id='logo'>X</h2>
+	</div>
+
+	<div id='parent'>
+		<div id='yello'>
+			<h1>Instructions</h1>
+			<p id='p1'>You will see a rapid stream of letters in the center with a variable <br>number of distractors surrounding the center.
+	</p>
+
+
+		<p id='p2'><b>task :</b> identify the number (1-9) that appears in the target stream<br> and then evaluate whether or not (y/n) an X appeared sometime<br> after the number</p>
+
+		<p id='p3'>this is a within group experiment,<br>
+there will be 4 different conditions with 5 trials each</p>
+		</div>
+
+		<div id='accent'></div>
+	</div>
+
+	<div id='sample'>
+	<h1>Sample Stimuli : </h1>
+	
+		<div id='stimuli'>
+			<div id='target'>+</div>
+			<div id='d1' class ='dis'>1</div>
+			<div id='d2' class='dis'>2</div>
+			<div id='d3' class='dis'>3</div>
+			<div id='d4'  class='dis'>4</div>
+		</div>
+
+
+	<div id='key'>
+		<div>
+			<p class='keys'>Distractors : Capital Letters</p>
+			<p class='keys'>Target 1 : A random number (1-9)</p>
+			<p class='keys'>Target 2 : Wheter or not  an X appeared after Target 1</p>
+		</div>
+	</div>
+	
+	</div>
+
+	<div id='start'>
+		<p>At the start of each trial a crosshair will appear for you to fixate on for 1.5 seconds.
+</p>
+		<button id='startButton' onclick='openLink()'>Begin</button>
+	</div>
+
+	<footer>
+		<p id='cred'>Kelly Truong 2020</p>
+			<div id='links'> <a href='index.html'>Home</a><a href='exp.html'>Experiment</a>	<a href='about.html'>About</a>
+			</div>
+	</footer>
+
+</body>
+</html>
