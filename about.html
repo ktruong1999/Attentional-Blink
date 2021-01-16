@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Attentional Blink Experiment</title>
+	<link rel="icon" href="X.svg" type="image/gif" sizes="16x16">
+	<link rel="stylesheet" type="text/css" href="css/footer.css">
+		<link rel="stylesheet" type="text/css" href="css/about.css">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div id='about'>
+		<h1 class='headings'>About</h1>
+		<div id='def'>
+			<div id='main'>
+				<p><b>Attentional Blink -</b> a phenomenon that reflects temporal 
+limitations in the ability to deploy visual attention. When 
+people must identify two visual stimuli in quick succession,
+ accuracy for the second stimulus is poor if it occurs within 
+200 to 500 ms of the first</p>
+			</div>
+			<div id='accent'></div>
+		</div>
+		<p class='copy'>This experiment was made for Psychology 30 Web Programming for Psychology during the Spring 2020 quarter. The experiment observes the effects of Attentional Blink as the number of surrounding distractors increase. 
+			
+			<br><br>This experiment is a <b>within group experiment</b> <br></p>
+		<div id='exp' class='copy'>
+			<p>
+			<b>independent variable :</b> # of surrounding distractors (levels : 0, 2, 3, or 4 distractors)
+			<br><b>depdendent variable :</b> Accuracy successfully detecting t2 after successfully detecting t1 </p>
+
+		</div>
+	</div>
+
+
+	<div id='how'>
+		<h1 class='headings'>How It's Made</h1>
+		<p class='copy'> This experiment was made entirely in Javascript, HTML, & CSS. Concepts used include recursive functions, keyboard inputs, and DOM manipulation. 
+<br><br>
+Original experiment was held over the Professor’s webhosting platform, which helped to counterbalance conditions according to participant ID and store scores in a database. A seperate Perl file was used for backend access to the database of scores and would generate a graph of average accuracy per condition and also run an ANOVA test to see if there was a difference between groups. </p>
+	</div>
+
+	<div id='versions'>
+		<h1 class='headings'>Version History</h1>
+		<p class='copy'><b>Version 1 (Spring 2020) :</b> Original files were on the class webhosting server and database. <br><br>
+
+<b>Version 2 (Jan 2021, Current Version) :</b> Developed front end by seperating CSS & JS files better and improving UI. <br><br>
+
+<b>Future Version goals :</b> Create a database and add in the dynamic bar chart & ANOVA test using scores retrieved from the server. Improve user input interface, currently an issue with onkeyup function taking input anytime in the program (it shoudl only take responses when the question divs are displayed)</p>
+	</div>
+
+
+	<footer>
+		<p id='cred'>Kelly Truong 2020</p>
+			<div id='links'> <a href='index.html'>Home</a><a href='exp.html'>Experiment</a>	<a href='about.html'>About</a>
+			</div>
+	</footer>
+
+</body>
+
+</html>
